@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chúc mừng sinh nhật bạn</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Segoe UI', cursive;
+      background: linear-gradient(to bottom right, #ffe6f0, #fbeaff);
+      overflow-x: hidden;
+      text-align: center;
+      color: #d63384;
+    }
+
+    .container {
+      padding: 50px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #ff4da6;
+      text-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+    }
+
+    p {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #cc3399;
+      max-width: 600px;
+      margin: 0 auto 30px auto;
+      line-height: 1.6;
+    }
+
+    button {
+      background-color: #ff66b2;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 15px 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff3385;
+    }
+
+    .heart-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      margin-top: 40px;
+    }
+
+    .heart-image {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(255, 105, 180, 0.2);
+      animation: spin 8s infinite linear;
+    }
+
+    @keyframes spin {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎂 Chúc mừng sinh nhật bạn! 🎉</h1>
+    <p>
+      Hôm nay là một ngày thật đặc biệt – ngày mà một người tuyệt vời ra đời. 
+      Chúc bạn luôn vui vẻ, mạnh khỏe, thành công và tràn ngập tiếng cười. 
+      Mong mọi điều tốt đẹp nhất sẽ luôn đến với bạn!
+    </p>
+    <button id="openGiftBtn">🎁 Mở quà bất ngờ</button>
+    <div class="heart-container" id="heartContainer"></div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById("openGiftBtn");
+    const heartContainer = document.getElementById("heartContainer");
+
+    // Tọa độ hình trái tim
+    const positions = [
+      [0, -150], [35, -120], [70, -90], [100, -50], [115, 0],
+      [100, 50], [70, 90], [35, 120], [0, 150], [-35, 120],
+      [-70, 90], [-100, 50], [-115, 0], [-100, -50], [-70, -90], [-35, -120],
+      [0, 0] // trung tâm
+    ];
+
+    const imageUrls = [
+      "https://i.imgur.com/3UQbn4h.jpg",
+      "https://i.imgur.com/VJtViwE.jpg",
+      "https://i.imgur.com/RRY0Uc4.jpg",
+      "https://i.imgur.com/gpDRuK5.jpg",
+      "https://i.imgur.com/vAyQ5MY.jpg",
+      "https://i.imgur.com/Loj3E4s.jpg",
+      "https://i.imgur.com/IJdYWaW.jpg",
+      "https://i.imgur.com/g0ToYh3.jpg",
+      "https://i.imgur.com/3UQbn4h.jpg",
+      "https://i.imgur.com/VJtViwE.jpg",
+      "https://i.imgur.com/RRY0Uc4.jpg",
+      "https://i.imgur.com/gpDRuK5.jpg",
+      "https://i.imgur.com/vAyQ5MY.jpg",
+      "https://i.imgur.com/Loj3E4s.jpg",
+      "https://i.imgur.com/IJdYWaW.jpg",
+      "https://i.imgur.com/g0ToYh3.jpg",
+      "https://i.imgur.com/3UQbn4h.jpg"
+    ];
+
+    openBtn.addEventListener("click", () => {
+      heartContainer.innerHTML = "";
+      positions.forEach((pos, i) => {
+        const img = document.createElement("img");
+        img.src = imageUrls[i % imageUrls.length];
+        img.className = "heart-image";
+        img.style.left = "50%";
+        img.style.top = "50%";
+        img.style.transform = `translate(${pos[0]}px, ${pos[1]}px)`;
+        heartContainer.appendChild(img);
+      });
+    });
+  </script>
+</body>
+</html>
