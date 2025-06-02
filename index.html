@@ -68,7 +68,16 @@
       border-radius: 20px;
       object-fit: cover;
       box-shadow: 0 4px 8px rgba(255, 105, 180, 0.2);
-      animation: spin 8s infinite linear;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      animation: fadeInScale 0.6s ease forwards;
+    }
+
+    @keyframes fadeInScale {
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
     }
 
     @keyframes spin {
@@ -93,12 +102,11 @@
     const openBtn = document.getElementById("openGiftBtn");
     const heartContainer = document.getElementById("heartContainer");
 
-    // Tọa độ hình trái tim
     const positions = [
       [0, -150], [35, -120], [70, -90], [100, -50], [115, 0],
       [100, 50], [70, 90], [35, 120], [0, 150], [-35, 120],
       [-70, 90], [-100, 50], [-115, 0], [-100, -50], [-70, -90], [-35, -120],
-      [0, 0] // trung tâm
+      [0, 0]
     ];
 
     const imageUrls = [
@@ -110,26 +118,19 @@
       "https://i.imgur.com/Loj3E4s.jpg",
       "https://i.imgur.com/IJdYWaW.jpg",
       "https://i.imgur.com/g0ToYh3.jpg",
-      "https://i.imgur.com/3UQbn4h.jpg",
-      "https://i.imgur.com/VJtViwE.jpg",
-      "https://i.imgur.com/RRY0Uc4.jpg",
-      "https://i.imgur.com/gpDRuK5.jpg",
-      "https://i.imgur.com/vAyQ5MY.jpg",
-      "https://i.imgur.com/Loj3E4s.jpg",
-      "https://i.imgur.com/IJdYWaW.jpg",
-      "https://i.imgur.com/g0ToYh3.jpg",
-      "https://i.imgur.com/3UQbn4h.jpg"
     ];
 
     openBtn.addEventListener("click", () => {
       heartContainer.innerHTML = "";
+
       positions.forEach((pos, i) => {
         const img = document.createElement("img");
         img.src = imageUrls[i % imageUrls.length];
         img.className = "heart-image";
         img.style.left = "50%";
         img.style.top = "50%";
-        img.style.transform = `translate(${pos[0]}px, ${pos[1]}px)`;
+        img.style.animationDelay = `${i * 0.1}s`;
+        img.style.transform = `translate(-50%, -50%) translate(${pos[0]}px, ${pos[1]}px) scale(0.6)`;
         heartContainer.appendChild(img);
       });
     });
