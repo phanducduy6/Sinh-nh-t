@@ -58,7 +58,7 @@
       color: #ffc0cb;
       font-size: 1rem;
     }
-    #wheel, #result, #imageBox {
+    #wheel, #result {
       margin-top: 30px;
       text-align: center;
     }
@@ -87,10 +87,33 @@
     #wheel.spin {
       animation: spin 3s ease-out forwards;
     }
-    #imageBox img {
-      width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+
+    /* Heart Image Container */
+    #imageBox {
+      display: none;
+      position: relative;
+      width: 360px;
+      height: 360px;
+      margin-top: 30px;
+    }
+    #heartContainer {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    @keyframes spinContainer {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .hidden-image {
+      opacity: 0;
+    }
+    #heartContainer img {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      transition: all 1s ease, opacity 1s ease;
     }
   </style>
 </head>
@@ -98,7 +121,7 @@
   <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
   <div class="intro">
     Chúc bạn một sinh nhật tràn ngập niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
-Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đặc biệt của bạn!
+    Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đặc biệt của bạn!
   </div>
 
   <div class="gifts">
@@ -108,14 +131,19 @@ Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đ
 
   <div id="wheel" style="display:none;"></div>
   <div id="result"></div>
-  <div id="imageBox" style="display:none;">
-    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
+
+  <div id="imageBox">
+    <div id="heartContainer"></div>
   </div>
 
   <footer>With love 💖</footer>
 
   <script>
-    let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
+    const prizes = [
+      "🐻 một bé gấu dễ thương",
+      "🍀 Chúc may mắn lần sau",
+      "🎁 Quà tự chọn trong tầm với của mình"
+    ];
 
     function spinWheel() {
       document.getElementById("wheel").style.display = "block";
@@ -124,19 +152,56 @@ Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đ
 
       const wheel = document.getElementById("wheel");
       wheel.classList.remove("spin");
-      void wheel.offsetWidth; // Reset animation
+      void wheel.offsetWidth;
       wheel.classList.add("spin");
 
       setTimeout(() => {
-        let index = Math.floor(Math.random() * prizes.length);
+        const index = Math.floor(Math.random() * prizes.length);
         document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
       }, 3000);
     }
 
     function showImage() {
-      document.getElementById("wheel").style.display = "none";
-      document.getElementById("result").textContent = "";
-      document.getElementById("imageBox").style.display = "block";
+      const imageBox = document.getElementById("imageBox");
+      const heartContainer = document.getElementById("heartContainer");
+      const result = document.getElementById("result");
+      const wheel = document.getElementById("wheel");
+
+      wheel.style.display = "none";
+      result.textContent = "";
+      heartContainer.innerHTML = "";
+      imageBox.style.display = "block";
+
+      const numImages = 15;
+      const radius = 140;
+      const centerX = 160;
+      const centerY = 160;
+
+      for (let i = 0; i < numImages; i++) {
+        const img = document.createElement("img");
+        img.src = "https://i.imgur.com/w1UJtnU.jpg"; // thay bằng ảnh khác nếu muốn
+        img.classList.add("hidden-image");
+        img.style.transform = `rotate(${(360 / numImages) * i}deg) translate(${radius}px) rotate(-${(360 / numImages) * i}deg)`;
+        heartContainer.appendChild(img);
+      }
+
+      heartContainer.style.animation = "spinContainer 5s linear";
+
+      setTimeout(() => {
+        heartContainer.style.animation = "none";
+
+        const heartCoords = [
+          [0, -90], [50, -110], [100, -90], [120, -40], [100, 20],
+          [50, 90], [0, 140], [-50, 90], [-100, 20], [-120, -40],
+          [-100, -90], [-50, -110], [-25, -90], [25, -90], [0, -60]
+        ];
+
+        [...heartContainer.children].forEach((img, idx) => {
+          const [x, y] = heartCoords[idx];
+          img.style.transform = `translate(${centerX + x - 40}px, ${centerY + y - 40}px)`;
+          img.classList.remove("hidden-image");
+        });
+      }, 5000);
     }
   </script>
 </body>
