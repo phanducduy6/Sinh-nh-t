@@ -1,143 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday Trang!</title>
+  <title>Chúc mừng sinh nhật Trang</title>
   <style>
     body {
-      background: linear-gradient(135deg, #f8cdda, #1d2b64);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-      min-height: 100vh;
-      margin: 0;
-    }
-    h1 {
-      color: #ff69b4;
-      text-shadow: 1px 1px 5px #ff1493;
-      margin-bottom: 20px;
-      font-size: 3rem;
-    }
-    .intro {
-      max-width: 600px;
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);
       text-align: center;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      line-height: 1.6;
+      padding: 50px 20px;
+      color: white;
     }
-    .gifts {
-      display: flex;
-      gap: 30px;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 600px;
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff66b2;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    #result, #imageBox {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #fff;
+    }
+    canvas {
+      background: #fff;
+      border-radius: 50%;
       margin-top: 20px;
     }
-    .gift-button {
-      background: #ff69b4;
-      border: none;
-      border-radius: 12px;
-      padding: 20px 30px;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .gift-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 25px rgba(255, 105, 180, 0.9);
-    }
-    footer {
-      margin-top: 40px;
-      font-style: italic;
-      color: #ffc0cb;
-      font-size: 1rem;
-    }
-    #wheel, #result, #imageBox {
-      margin-top: 30px;
-      text-align: center;
-    }
-    #wheel {
-      width: 200px;
-      height: 200px;
-      border: 10px solid #fff;
-      border-radius: 50%;
-      background: conic-gradient(#ff69b4 0% 33%, #ffb6c1 33% 66%, #ffe4e1 66% 100%);
-      animation: none;
-      position: relative;
-    }
-    #wheel::after {
-      content: "▼";
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #fff;
-    }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(1440deg); }
-    }
-    #wheel.spin {
-      animation: spin 3s ease-out forwards;
-    }
-    #imageBox img {
-      width: 300px;
+    img {
+      margin-top: 20px;
+      max-width: 80%;
       border-radius: 15px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+      box-shadow: 0 0 10px #fff;
     }
   </style>
 </head>
 <body>
-  <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
-  <div class="intro">
-    Wishing you a birthday full of joy, surprises, and heartfelt moments.<br>
-    Click the buttons below to open your special birthday surprises!
-  </div>
+  <h2>🎉 Sinh Nhật Vui Vẻ Trang 🎉</h2>
+  <p>Nhấn các nút bên dưới để mở những điều bất ngờ!</p>
 
-  <div class="gifts">
-    <button class="gift-button" onclick="spinWheel()">🎁 Mở Ra  (Vòng quay)</button>
-    <button class="gift-button" onclick="showImage()">🎁 Mở Ra (Hình ảnh)</button>
-  </div>
+  <button onclick="spin()">🎁 Mở Ra (Vòng Quay)</button>
+  <button onclick="showRandomImage()">🖼️ Mở Ra (Hình Ảnh)</button>
 
-  <div id="wheel" style="display:none;"></div>
-  <div id="result"></div>
-  <div id="imageBox" style="display:none;">
-    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
-  </div>
+  <canvas id="wheel" width="300" height="300"></canvas>
 
-  <footer>With love 💖</footer>
+  <div id="result">Bạn đã nhận được: ...</div>
+  <div id="imageBox"></div>
 
   <script>
-    let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
+    const prizes = [
+      "🐻 Bạn đã trúng một bé gấu dễ thương",
+      "🍀 Chúc bạn may mắn lần sau",
+      "🎁 Tự chọn phần quà mà tôi có thể làm"
+    ];
+    const colors = ["#ffb3ba", "#bae1ff", "#baffc9"];
 
-    function spinWheel() {
-      document.getElementById("wheel").style.display = "block";
-      document.getElementById("result").textContent = "";
-      document.getElementById("imageBox").style.display = "none";
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const arc = Math.PI * 2 / prizes.length;
 
-      const wheel = document.getElementById("wheel");
-      wheel.classList.remove("spin");
-      void wheel.offsetWidth; // Reset animation
-      wheel.classList.add("spin");
+    function drawWheel() {
+      for (let i = 0; i < prizes.length; i++) {
+        const angle = i * arc;
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 150, angle, angle + arc);
+        ctx.lineTo(150, 150);
+        ctx.fill();
 
-      setTimeout(() => {
-        let index = Math.floor(Math.random() * prizes.length);
-        document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
-      }, 3000);
+        // Text
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.rotate(angle + arc / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#000";
+        ctx.font = "14px Arial";
+        ctx.fillText(prizes[i], 140, 0);
+        ctx.restore();
+      }
     }
 
-    function showImage() {
-      document.getElementById("wheel").style.display = "none";
-      document.getElementById("result").textContent = "";
-      document.getElementById("imageBox").style.display = "block";
+    function spin() {
+      const randomIndex = Math.floor(Math.random() * prizes.length);
+      document.getElementById("result").textContent =
+        "Bạn đã nhận được: " + prizes[randomIndex];
     }
+
+    function showRandomImage() {
+      const index = Math.floor(Math.random() * 10) + 1; // 1 -> 10
+      const imagePath = `images/img${index}.jpg`;
+      document.getElementById("imageBox").innerHTML =
+        `<img src="${imagePath}" alt="Hình ảnh chúc mừng">`;
+    }
+
+    drawWheel();
   </script>
 </body>
 </html>
