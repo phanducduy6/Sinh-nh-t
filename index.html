@@ -31,22 +31,22 @@
     }
     .gifts {
       display: flex;
-      gap: 20px;
+      gap: 30px;
       flex-wrap: wrap;
       justify-content: center;
       max-width: 600px;
+      margin-top: 20px;
     }
     .gift-button {
       background: #ff69b4;
       border: none;
       border-radius: 12px;
-      padding: 15px 25px;
+      padding: 20px 30px;
       color: white;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      user-select: none;
     }
     .gift-button:hover {
       transform: scale(1.1);
@@ -58,40 +58,85 @@
       color: #ffc0cb;
       font-size: 1rem;
     }
+    #wheel, #result, #imageBox {
+      margin-top: 30px;
+      text-align: center;
+    }
+    #wheel {
+      width: 200px;
+      height: 200px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      background: conic-gradient(#ff69b4 0% 33%, #ffb6c1 33% 66%, #ffe4e1 66% 100%);
+      animation: none;
+      position: relative;
+    }
+    #wheel::after {
+      content: "▼";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #fff;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(1440deg); }
+    }
+    #wheel.spin {
+      animation: spin 3s ease-out forwards;
+    }
+    #imageBox img {
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    }
   </style>
 </head>
 <body>
   <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
   <div class="intro">
-    On this special day, may your heart be filled with joy,<br />
-    your mind with wisdom, and your life with endless blessings.<br />
-    May every moment today and throughout the year ahead<br />
-    be as wonderful and unique as you are.<br />
-    Wishing you health, happiness, and success in all that you do.<br />
-    Cheers to another year of amazing adventures!
+    Wishing you a birthday full of joy, surprises, and heartfelt moments.<br>
+    Click the buttons below to open your special birthday surprises!
   </div>
 
   <div class="gifts">
-    <button class="gift-button" onclick="openGift(0)">🎁 Open Gift 1</button>
-    <button class="gift-button" onclick="openGift(1)">🎁 Open Gift 2</button>
-    <button class="gift-button" onclick="openGift(2)">🎁 Open Gift 3</button>
-    <button class="gift-button" onclick="openGift(3)">🎁 Open Gift 4</button>
-    <button class="gift-button" onclick="openGift(4)">🎁 Open Gift 5</button>
+    <button class="gift-button" onclick="spinWheel()">🎁 Mở Ra  (Vòng quay)</button>
+    <button class="gift-button" onclick="showImage()">🎁 Mở Ra (Hình ảnh)</button>
   </div>
 
-  <footer>With warmest regards, Your friend</footer>
+  <div id="wheel" style="display:none;"></div>
+  <div id="result"></div>
+  <div id="imageBox" style="display:none;">
+    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
+  </div>
+
+  <footer>With love 💖</footer>
 
   <script>
-    const wishes = [
-      "May your year be filled with endless joy and success!",
-      "Wishing you a day as bright and beautiful as your smile!",
-      "Here's to health, happiness, and unforgettable adventures ahead!",
-      "May every moment be filled with laughter and love!",
-      "Cheers to you on your special day! Keep shining bright!"
-    ];
+    let prizes = ["💌 Lời chúc dễ thương", "🍀 Chúc may mắn cả năm", "🎁 Quà bí mật từ vũ trụ"];
 
-    function openGift(index) {
-      alert(wishes[index]);
+    function spinWheel() {
+      document.getElementById("wheel").style.display = "block";
+      document.getElementById("result").textContent = "";
+      document.getElementById("imageBox").style.display = "none";
+
+      const wheel = document.getElementById("wheel");
+      wheel.classList.remove("spin");
+      void wheel.offsetWidth; // Reset animation
+      wheel.classList.add("spin");
+
+      setTimeout(() => {
+        let index = Math.floor(Math.random() * prizes.length);
+        document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
+      }, 3000);
+    }
+
+    function showImage() {
+      document.getElementById("wheel").style.display = "none";
+      document.getElementById("result").textContent = "";
+      document.getElementById("imageBox").style.display = "block";
     }
   </script>
 </body>
