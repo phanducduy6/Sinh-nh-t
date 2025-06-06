@@ -36,7 +36,6 @@
       justify-content: center;
       max-width: 600px;
       margin-top: 20px;
-      position: relative;
     }
     .gift-button {
       background: #ff69b4;
@@ -48,8 +47,6 @@
       cursor: pointer;
       box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      position: relative;
-      z-index: 10;
     }
     .gift-button:hover {
       transform: scale(1.1);
@@ -61,206 +58,86 @@
       color: #ffc0cb;
       font-size: 1rem;
     }
-
-    #imageHeartBox {
-      position: relative;
-      width: 340px;   /* tăng kích thước */
-      height: 340px;  /* tăng kích thước */
-      margin-top: 40px;
-      display: none;
-    }
-    #imageHeartBox .center-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 60px;
-      height: 40px;
-      line-height: 40px;
+    #wheel, #result, #imageBox {
+      margin-top: 30px;
       text-align: center;
-      background: #ff69b4;
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 1rem;
-      font-weight: 600;
-      transform: translate(-50%, -50%);
-      cursor: default;
-      box-shadow: 0 0 15px #ff69b4;
-      animation: heartbeat 1.5s infinite;
-      z-index: 20;
-      user-select: none;
     }
-
-    #imageHeartBox .heart-image {
+    #wheel {
+      width: 200px;
+      height: 200px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      background: conic-gradient(#ff69b4 0% 33%, #ffb6c1 33% 66%, #ffe4e1 66% 100%);
+      animation: none;
+      position: relative;
+    }
+    #wheel::after {
+      content: "▼";
       position: absolute;
-      width: 100px;   /* tăng kích thước ảnh */
-      height: 100px;  /* tăng kích thước ảnh */
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
-      cursor: pointer;
-      transition:
-        top 0.8s ease,
-        left 0.8s ease,
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-      animation: pulse 3s ease-in-out infinite;
-      user-select: none;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: #fff;
     }
-    #imageHeartBox .heart-image:hover {
-      transform: scale(1.3);
-      box-shadow: 0 0 25px rgba(255, 20, 147, 1);
-      z-index: 30;
-    }
-
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: translate(-50%, -50%) scale(1);
-        box-shadow: 0 0 15px #ff69b4;
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.12);
-        box-shadow: 0 0 25px #ff1493;
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 5px #ff69b4);
-      }
-      50% {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 15px #ff1493);
-      }
-    }
-
-    .rotate {
-      animation: rotateFull 5s linear forwards;
-    }
-    @keyframes rotateFull {
+    @keyframes spin {
       from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      to { transform: rotate(1440deg); }
+    }
+    #wheel.spin {
+      animation: spin 3s ease-out forwards;
+    }
+    #imageBox img {
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
     }
   </style>
 </head>
 <body>
   <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
   <div class="intro">
-    Chúc bạn một sinh nhật tràn ngập niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
-    Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đặc biệt của bạn!
+    Wishing you a birthday full of joy, surprises, and heartfelt moments.<br>
+    Click the buttons below to open your special birthday surprises!
   </div>
+
   <div class="gifts">
     <button class="gift-button" onclick="spinWheel()">🎁 Mở Ra  (Vòng quay)</button>
-    <button class="gift-button" id="openHeartImages">🎁 Mở Ra (Hình ảnh)</button>
+    <button class="gift-button" onclick="showImage()">🎁 Mở Ra (Hình ảnh)</button>
   </div>
+
   <div id="wheel" style="display:none;"></div>
   <div id="result"></div>
-
-  <div id="imageHeartBox">
-    <button class="center-button">❤️</button>
+  <div id="imageBox" style="display:none;">
+    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
   </div>
 
   <footer>With love 💖</footer>
 
   <script>
     let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
+
     function spinWheel() {
       document.getElementById("wheel").style.display = "block";
       document.getElementById("result").textContent = "";
-      document.getElementById("imageHeartBox").style.display = "none";
+      document.getElementById("imageBox").style.display = "none";
+
       const wheel = document.getElementById("wheel");
       wheel.classList.remove("spin");
-      void wheel.offsetWidth;
+      void wheel.offsetWidth; // Reset animation
       wheel.classList.add("spin");
+
       setTimeout(() => {
         let index = Math.floor(Math.random() * prizes.length);
         document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
       }, 3000);
     }
 
-    const heartBox = document.getElementById("imageHeartBox");
-    const centerButton = heartBox.querySelector(".center-button");
-    const openBtn = document.getElementById("openHeartImages");
-
-    const imgUrls = [
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg",
-      "https://i.imgur.com/w1UJtnU.jpg"
-    ];
-
-    function createHeartImages() {
-      const oldImgs = heartBox.querySelectorAll(".heart-image");
-      oldImgs.forEach(img => img.remove());
-
-      for(let i=0; i<10; i++) {
-        let img = document.createElement("img");
-        img.src = imgUrls[i];
-        img.classList.add("heart-image");
-        heartBox.appendChild(img);
-      }
-    }
-
-    function arrangeImagesInHeart() {
-      const images = heartBox.querySelectorAll(".heart-image");
-      const centerX = 170;  // tăng từ 135
-      const centerY = 170;  // tăng từ 135
-      const scaleX = 4.5;
-      const scaleY = 4;
-      const tValues = [];
-      for(let i=0; i<10; i++) {
-        tValues.push(i * (2 * Math.PI / 10));
-      }
-
-      images.forEach((img, i) => {
-        const t = tValues[i];
-        const x = 16 * Math.pow(Math.sin(t), 3);
-        const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-        const left = centerX + x * scaleX - 50;  // đổi từ -40 thành -50 để ảnh to hơn
-        const top = centerY - y * scaleY - 50;   // đổi từ -40 thành -50
-        img.style.left = left + "px";
-        img.style.top = top + "px";
-        img.style.animationPlayState = "paused";
-        img.style.transform = "scale(1)";
-      });
-    }
-
-    function arrangeImagesCircle() {
-      const images = heartBox.querySelectorAll(".heart-image");
-      const centerX = 170;  // tăng từ 135
-      const centerY = 170;  // tăng từ 135
-      const radius = 150;   // tăng từ 120
-
-      images.forEach((img, i) => {
-        const angle = (i / images.length) * 2 * Math.PI;
-        const left = centerX + radius * Math.cos(angle) - 50;  // -50 để ảnh to hơn
-        const top = centerY + radius * Math.sin(angle) - 50;   // -50 để ảnh to hơn
-        img.style.left = left + "px";
-        img.style.top = top + "px";
-        img.style.animationPlayState = "running";
-      });
-    }
-
-    openBtn.addEventListener("click", () => {
+    function showImage() {
       document.getElementById("wheel").style.display = "none";
       document.getElementById("result").textContent = "";
-      heartBox.style.display = "block";
-      createHeartImages();
-
-      heartBox.classList.add("rotate");
-      arrangeImagesCircle();
-
-      setTimeout(() => {
-        heartBox.classList.remove("rotate");
-        arrangeImagesInHeart();
-      }, 5000);
-    });
+      document.getElementById("imageBox").style.display = "block";
+    }
   </script>
 </body>
 </html>
