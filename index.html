@@ -62,7 +62,6 @@
       font-size: 1rem;
     }
 
-    /* Container cho ảnh trái tim */
     #imageHeartBox {
       position: relative;
       width: 270px;
@@ -70,7 +69,6 @@
       margin-top: 40px;
       display: none;
     }
-    /* Nút trung tâm */
     #imageHeartBox .center-button {
       position: absolute;
       top: 50%;
@@ -93,12 +91,11 @@
       user-select: none;
     }
 
-    /* 10 ảnh nhỏ */
     #imageHeartBox .heart-image {
       position: absolute;
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
       box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
       cursor: pointer;
       transition:
@@ -115,7 +112,6 @@
       z-index: 30;
     }
 
-    /* Hiệu ứng nhịp đập */
     @keyframes heartbeat {
       0%, 100% {
         transform: translate(-50%, -50%) scale(1);
@@ -127,7 +123,6 @@
       }
     }
 
-    /* Hiệu ứng nhịp nhỏ khi xoay */
     @keyframes pulse {
       0%, 100% {
         transform: scale(1);
@@ -139,7 +134,6 @@
       }
     }
 
-    /* Xoay toàn bộ box 5s */
     .rotate {
       animation: rotateFull 5s linear forwards;
     }
@@ -162,7 +156,6 @@
   <div id="wheel" style="display:none;"></div>
   <div id="result"></div>
 
-  <!-- Box chứa ảnh trái tim -->
   <div id="imageHeartBox">
     <button class="center-button">❤️</button>
   </div>
@@ -170,7 +163,6 @@
   <footer>With love 💖</footer>
 
   <script>
-    // Vòng quay (giữ nguyên code cũ)
     let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
     function spinWheel() {
       document.getElementById("wheel").style.display = "block";
@@ -178,7 +170,7 @@
       document.getElementById("imageHeartBox").style.display = "none";
       const wheel = document.getElementById("wheel");
       wheel.classList.remove("spin");
-      void wheel.offsetWidth; // reset animation
+      void wheel.offsetWidth;
       wheel.classList.add("spin");
       setTimeout(() => {
         let index = Math.floor(Math.random() * prizes.length);
@@ -186,12 +178,10 @@
       }, 3000);
     }
 
-    // Xử lý mở ra hình ảnh trái tim
     const heartBox = document.getElementById("imageHeartBox");
     const centerButton = heartBox.querySelector(".center-button");
     const openBtn = document.getElementById("openHeartImages");
 
-    // 10 ảnh mẫu (bạn có thể thay link ảnh theo ý)
     const imgUrls = [
       "https://i.imgur.com/w1UJtnU.jpg",
       "https://i.imgur.com/w1UJtnU.jpg",
@@ -205,9 +195,7 @@
       "https://i.imgur.com/w1UJtnU.jpg"
     ];
 
-    // Hàm tạo các ảnh
     function createHeartImages() {
-      // Xóa ảnh cũ nếu có
       const oldImgs = heartBox.querySelectorAll(".heart-image");
       oldImgs.forEach(img => img.remove());
 
@@ -219,52 +207,41 @@
       }
     }
 
-    // Công thức xếp ảnh thành hình trái tim nhỏ trong box 270x270
-    // Dùng tỉ lệ trục X,Y và hàm toán học cho hình trái tim đơn giản:
-    // x = 16sin^3(t), y = 13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t)
-    // t từ 0 đến 2π, lấy 10 điểm đều
     function arrangeImagesInHeart() {
       const images = heartBox.querySelectorAll(".heart-image");
-      const centerX = 135; // center của box 270x270
+      const centerX = 135;
       const centerY = 135;
-      const scaleX = 8; // tỉ lệ cho nhỏ gọn
-      const scaleY = 7;
+      const scaleX = 4.5;
+      const scaleY = 4;
       const tValues = [];
-      // Lấy 10 t đều từ 0 đến 2π
       for(let i=0; i<10; i++) {
         tValues.push(i * (2 * Math.PI / 10));
       }
 
       images.forEach((img, i) => {
         const t = tValues[i];
-        // Hàm hình trái tim toán học
         const x = 16 * Math.pow(Math.sin(t), 3);
         const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
-        // Định vị trong box (điều chỉnh tâm và scale)
-        const left = centerX + x * scaleX - 20; // 20 = ảnh rộng/2
-        const top = centerY - y * scaleY - 20;
-        // Set vị trí ảnh (sử dụng transition để animation)
+        const left = centerX + x * scaleX - 40;
+        const top = centerY - y * scaleY - 40;
         img.style.left = left + "px";
         img.style.top = top + "px";
-        // Dừng animation pulse khi đã xếp
         img.style.animationPlayState = "paused";
-        // Reset transform scale (nếu hover chưa xảy ra)
         img.style.transform = "scale(1)";
       });
     }
 
-    // Xếp ảnh xoay quanh nút theo vòng tròn khi đang xoay
     function arrangeImagesCircle() {
       const images = heartBox.querySelectorAll(".heart-image");
       const centerX = 135;
       const centerY = 135;
-      const radius = 90; // bán kính vòng tròn
+      const radius = 120;
       const count = images.length;
 
       images.forEach((img, i) => {
         const angle = (i / count) * 2 * Math.PI;
-        const left = centerX + radius * Math.cos(angle) - 20;
-        const top = centerY + radius * Math.sin(angle) - 20;
+        const left = centerX + radius * Math.cos(angle) - 40;
+        const top = centerY + radius * Math.sin(angle) - 40;
         img.style.left = left + "px";
         img.style.top = top + "px";
         img.style.animationPlayState = "running";
@@ -280,7 +257,6 @@
       heartBox.classList.add("rotate");
       arrangeImagesCircle();
 
-      // Tắt xoay sau 5s, chuyển sang hình trái tim
       setTimeout(() => {
         heartBox.classList.remove("rotate");
         arrangeImagesInHeart();
