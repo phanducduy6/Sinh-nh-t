@@ -1,102 +1,98 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chúc mừng sinh nhật</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Trang!</title>
   <style>
     body {
+      background: linear-gradient(135deg, #f8cdda, #1d2b64);
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      min-height: 100vh;
       margin: 0;
-      font-family: 'Comic Sans MS', cursive;
-      background: linear-gradient(to bottom right, #ffe6f0, #fbeaff);
-      text-align: center;
-      overflow: hidden;
-      color: #d63384;
     }
-
     h1 {
-      margin-top: 40px;
-      font-size: 2.5em;
-      color: #ff4da6;
-      text-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+      color: #ff69b4;
+      text-shadow: 1px 1px 5px #ff1493;
+      margin-bottom: 20px;
+      font-size: 3rem;
     }
-
-    button {
-      background-color: #ff66b2;
+    .intro {
+      max-width: 600px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    .gifts {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 600px;
+    }
+    .gift-button {
+      background: #ff69b4;
       border: none;
-      border-radius: 30px;
+      border-radius: 12px;
+      padding: 15px 25px;
       color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      padding: 15px 30px;
+      font-size: 1.1rem;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
-      transition: background-color 0.3s ease;
-      margin-top: 20px;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
     }
-
-    button:hover {
-      background-color: #ff3385;
+    .gift-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(255, 105, 180, 0.9);
     }
-
-    .cake-container {
-      margin: 40px auto;
-      width: 300px;
-      height: 300px;
-      position: relative;
-    }
-
-    .cake-container img {
-      width: 100%;
-      animation: flicker 1s infinite;
-    }
-
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.85; }
-    }
-
-    .orbit-container {
-      display: none;
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .orbit {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform-origin: center center;
-      animation: spin 30s linear infinite;
-    }
-
-    .orbit img {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+    footer {
+      margin-top: 40px;
+      font-style: italic;
+      color: #ffc0cb;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <h1>🎂 Chúc mừng sinh nhật bạn! 🎉</h1>
-  <div class="cake-container" id="cake">
-    <img src="https://i.imgur.com/JnJ7gCR.png" alt="Bánh sinh nhật">
+  <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
+  <div class="intro">
+    On this special day, may your heart be filled with joy,<br />
+    your mind with wisdom, and your life with endless blessings.<br />
+    May every moment today and throughout the year ahead<br />
+    be as wonderful and unique as you are.<br />
+    Wishing you health, happiness, and success in all that you do.<br />
+    Cheers to another year of amazing adventures!
   </div>
 
-  <button id="openGiftBtn">🎁 Mở quà bất ngờ</button>
-
-  <div class="orbit-container" id="orbitContainer">
-    <div class="orbit" id="orbit"></div>
+  <div class="gifts">
+    <button class="gift-button" onclick="openGift(0)">🎁 Open Gift 1</button>
+    <button class="gift-button" onclick="openGift(1)">🎁 Open Gift 2</button>
+    <button class="gift-button" onclick="openGift(2)">🎁 Open Gift 3</button>
+    <button class="gift-button" onclick="openGift(3)">🎁 Open Gift 4</button>
+    <button class="gift-button" onclick="openGift(4)">🎁 Open Gift 5</button>
   </div>
 
- 
+  <footer>With warmest regards, Your friend</footer>
+
+  <script>
+    const wishes = [
+      "May your year be filled with endless joy and success!",
+      "Wishing you a day as bright and beautiful as your smile!",
+      "Here's to health, happiness, and unforgettable adventures ahead!",
+      "May every moment be filled with laughter and love!",
+      "Cheers to you on your special day! Keep shining bright!"
+    ];
+
+    function openGift(index) {
+      alert(wishes[index]);
+    }
+  </script>
+</body>
+</html>
