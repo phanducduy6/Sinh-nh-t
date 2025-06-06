@@ -58,12 +58,10 @@
       color: #ffc0cb;
       font-size: 1rem;
     }
-
-    #wheel, #result {
+    #wheel, #result, #imageBox {
       margin-top: 30px;
       text-align: center;
     }
-
     #wheel {
       width: 200px;
       height: 200px;
@@ -73,7 +71,6 @@
       animation: none;
       position: relative;
     }
-
     #wheel::after {
       content: "▼";
       position: absolute;
@@ -83,50 +80,25 @@
       font-size: 2rem;
       color: #fff;
     }
-
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(1440deg); }
     }
-
     #wheel.spin {
       animation: spin 3s ease-out forwards;
     }
-
-    /* Image box */
-    #imageBox {
-      display: none;
-      position: relative;
-      width: 360px;
-      height: 360px;
-      margin-top: 30px;
-    }
-
-    #heartContainer {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    @keyframes spinContainer {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    #heartContainer img {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
-      transition: all 1s ease;
+    #imageBox img {
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.5);
     }
   </style>
 </head>
 <body>
   <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
   <div class="intro">
-    Chúc bạn một sinh nhật tràn ngập niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
-    Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đặc biệt của bạn!
+    Wishing you a birthday full of joy, surprises, and heartfelt moments.<br>
+    Click the buttons below to open your special birthday surprises!
   </div>
 
   <div class="gifts">
@@ -136,19 +108,14 @@
 
   <div id="wheel" style="display:none;"></div>
   <div id="result"></div>
-
-  <div id="imageBox">
-    <div id="heartContainer"></div>
+  <div id="imageBox" style="display:none;">
+    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
   </div>
 
   <footer>With love 💖</footer>
 
   <script>
-    const prizes = [
-      "🐻 một bé gấu dễ thương",
-      "🍀 Chúc may mắn lần sau",
-      "🎁 Quà tự chọn trong tầm với của mình"
-    ];
+    let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
 
     function spinWheel() {
       document.getElementById("wheel").style.display = "block";
@@ -157,57 +124,20 @@
 
       const wheel = document.getElementById("wheel");
       wheel.classList.remove("spin");
-      void wheel.offsetWidth;
+      void wheel.offsetWidth; // Reset animation
       wheel.classList.add("spin");
 
       setTimeout(() => {
-        const index = Math.floor(Math.random() * prizes.length);
+        let index = Math.floor(Math.random() * prizes.length);
         document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
       }, 3000);
     }
 
     function showImage() {
-      const imageBox = document.getElementById("imageBox");
-      const heartContainer = document.getElementById("heartContainer");
-      const result = document.getElementById("result");
-      const wheel = document.getElementById("wheel");
-
-      wheel.style.display = "none";
-      result.textContent = "";
-      heartContainer.innerHTML = "";
-      imageBox.style.display = "block";
-
-      const numImages = 15;
-      const radius = 140;
-      const centerX = 160;
-      const centerY = 160;
-
-      // Tạo ảnh xoay quanh tâm
-      for (let i = 0; i < numImages; i++) {
-        const img = document.createElement("img");
-        img.src = "https://i.postimg.cc/YCqrrfRj/IMG-3332.jpg";
-        img.style.transform = `rotate(${(360 / numImages) * i}deg) translate(${radius}px) rotate(-${(360 / numImages) * i}deg)`;
-        heartContainer.appendChild(img);
-      }
-
-      // Xoay container 3s
-      heartContainer.style.animation = "spinContainer 5s linear";
-
-      setTimeout(() => {
-        heartContainer.style.animation = "none";
-
-        const heartCoords = [
-          [0, -90], [50, -110], [100, -90], [120, -40], [100, 20],
-          [50, 90], [0, 140], [-50, 90], [-100, 20], [-120, -40],
-          [-100, -90], [-50, -110], [-25, -90], [25, -90], [0, -60]
-        ];
-
-        // Xếp ảnh thành hình trái tim
-        [...heartContainer.children].forEach((img, idx) => {
-          if (idx < heartCoords.length) {
-            const [x, y] = heartCoords[idx];
-            img.style.transform = `translate(${centerX + x - 40}px, ${centerY + y - 40}px)`;
-          }
-        });
-
-      
+      document.getElementById("wheel").style.display = "none";
+      document.getElementById("result").textContent = "";
+      document.getElementById("imageBox").style.display = "block";
+    }
+  </script>
+</body>
+</html>
