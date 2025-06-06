@@ -58,10 +58,12 @@
       color: #ffc0cb;
       font-size: 1rem;
     }
+
     #wheel, #result {
       margin-top: 30px;
       text-align: center;
     }
+
     #wheel {
       width: 200px;
       height: 200px;
@@ -71,6 +73,7 @@
       animation: none;
       position: relative;
     }
+
     #wheel::after {
       content: "▼";
       position: absolute;
@@ -80,15 +83,17 @@
       font-size: 2rem;
       color: #fff;
     }
+
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(1440deg); }
     }
+
     #wheel.spin {
       animation: spin 3s ease-out forwards;
     }
 
-    /* Heart Image Container */
+    /* Image box */
     #imageBox {
       display: none;
       position: relative;
@@ -96,24 +101,24 @@
       height: 360px;
       margin-top: 30px;
     }
+
     #heartContainer {
       position: relative;
       width: 100%;
       height: 100%;
     }
+
     @keyframes spinContainer {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
-    .hidden-image {
-      opacity: 0;
-    }
+
     #heartContainer img {
       position: absolute;
       width: 80px;
       height: 80px;
       border-radius: 12px;
-      transition: all 1s ease, opacity 1s ease;
+      transition: all 1s ease;
     }
   </style>
 </head>
@@ -177,14 +182,15 @@
       const centerX = 160;
       const centerY = 160;
 
+      // Tạo ảnh xoay quanh tâm
       for (let i = 0; i < numImages; i++) {
         const img = document.createElement("img");
-        img.src = "https://i.imgur.com/w1UJtnU.jpg"; // thay bằng ảnh khác nếu muốn
-        img.classList.add("hidden-image");
+        img.src = "https://i.imgur.com/w1UJtnU.jpg";
         img.style.transform = `rotate(${(360 / numImages) * i}deg) translate(${radius}px) rotate(-${(360 / numImages) * i}deg)`;
         heartContainer.appendChild(img);
       }
 
+      // Xoay container 5s
       heartContainer.style.animation = "spinContainer 5s linear";
 
       setTimeout(() => {
@@ -196,11 +202,29 @@
           [-100, -90], [-50, -110], [-25, -90], [25, -90], [0, -60]
         ];
 
+        // Xếp ảnh thành hình trái tim
         [...heartContainer.children].forEach((img, idx) => {
-          const [x, y] = heartCoords[idx];
-          img.style.transform = `translate(${centerX + x - 40}px, ${centerY + y - 40}px)`;
-          img.classList.remove("hidden-image");
+          if (idx < heartCoords.length) {
+            const [x, y] = heartCoords[idx];
+            img.style.transform = `translate(${centerX + x - 40}px, ${centerY + y - 40}px)`;
+          }
         });
+
+        // Thêm bánh sinh nhật ở giữa
+        const cake = document.createElement("img");
+        cake.src = "https://i.imgur.com/9bK0Z5T.png"; // PNG nền trong suốt
+        cake.style.width = "100px";
+        cake.style.height = "100px";
+        cake.style.position = "absolute";
+        cake.style.left = "130px";
+        cake.style.top = "130px";
+        cake.style.opacity = "0";
+        cake.style.transition = "opacity 1s ease";
+        heartContainer.appendChild(cake);
+
+        setTimeout(() => {
+          cake.style.opacity = "1";
+        }, 200);
       }, 5000);
     }
   </script>
