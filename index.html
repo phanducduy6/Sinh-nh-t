@@ -185,12 +185,12 @@
       // Tạo ảnh xoay quanh tâm
       for (let i = 0; i < numImages; i++) {
         const img = document.createElement("img");
-        img.src = "https://i.imgur.com/w1UJtnU.jpg";
+        img.src = "https://i.postimg.cc/YCqrrfRj/IMG-3332.jpg";
         img.style.transform = `rotate(${(360 / numImages) * i}deg) translate(${radius}px) rotate(-${(360 / numImages) * i}deg)`;
         heartContainer.appendChild(img);
       }
 
-      // Xoay container 5s
+      // Xoay container 3s
       heartContainer.style.animation = "spinContainer 5s linear";
 
       setTimeout(() => {
@@ -210,23 +210,4 @@
           }
         });
 
-        // Thêm bánh sinh nhật ở giữa
-        const cake = document.createElement("img");
-        cake.src = "https://i.imgur.com/9bK0Z5T.png"; // PNG nền trong suốt
-        cake.style.width = "100px";
-        cake.style.height = "100px";
-        cake.style.position = "absolute";
-        cake.style.left = "130px";
-        cake.style.top = "130px";
-        cake.style.opacity = "0";
-        cake.style.transition = "opacity 1s ease";
-        heartContainer.appendChild(cake);
-
-        setTimeout(() => {
-          cake.style.opacity = "1";
-        }, 200);
-      }, 5000);
-    }
-  </script>
-</body>
-</html>
+      
