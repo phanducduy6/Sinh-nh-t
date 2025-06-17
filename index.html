@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chúc Mừng Sinh Nhật</title>
+  <title>Chúc Mừng Sinh Nhật Trang</title>
   <style>
     body {
       margin: 0;
@@ -14,9 +14,27 @@
       text-align: center;
     }
 
+    .birthday-title {
+      font-size: 42px;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff90e8, #b38bff, #90e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s infinite ease-in-out;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      line-height: 1.3;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #fff3, 0 0 20px #ff90e8; }
+      50% { text-shadow: 0 0 20px #fff8, 0 0 30px #90e0ff; }
+      100% { text-shadow: 0 0 10px #fff3, 0 0 20px #ff90e8; }
+    }
+
     p {
       font-size: 18px;
-      margin-top: 40px;
+      margin-top: 20px;
       line-height: 1.6;
     }
 
@@ -40,7 +58,6 @@
       transform: scale(1.05);
     }
 
-    /* IMAGE CONTAINER */
     .image-container {
       display: flex;
       flex-wrap: wrap;
@@ -73,14 +90,8 @@
     }
 
     @keyframes fadeInUp {
-      0% {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      0% { transform: translateY(20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
 
     .image-box img {
@@ -104,13 +115,27 @@
       text-align: center;
     }
 
-    /* GIFT BOXES */
     .gift-boxes {
       display: none;
       margin-top: 30px;
       justify-content: center;
       gap: 20px;
       flex-wrap: wrap;
+    }
+
+    .gift-boxes.intro .gift {
+      animation: floatIn 1s ease forwards;
+    }
+
+    @keyframes floatIn {
+      0% {
+        transform: scale(0.5) rotate(-30deg) translateY(100px);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) rotate(0deg) translateY(0);
+        opacity: 1;
+      }
     }
 
     .gift {
@@ -125,7 +150,13 @@
       font-size: 40px;
       cursor: pointer;
       transition: transform 0.3s;
-      position: relative;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .gift.ready {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .gift:hover {
@@ -148,7 +179,11 @@
       color: #ffe6f5;
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
+      .birthday-title {
+        font-size: 28px;
+      }
+
       .image-box img {
         width: 80px;
         height: 80px;
@@ -166,27 +201,27 @@
 </head>
 <body>
 
+  <h1 class="birthday-title">🎉 Chúc Mừng Sinh Nhật Trang 💖</h1>
+
   <p>
     Chúc bạn một sinh nhật tràn ngập<br>
     niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
     Nhấp vào các nút bên dưới để mở<br>
-    những bất ngờ sinh nhật đặc biệt của bạn!
+    những điều bất ngờ dành riêng cho bạn!
   </p>
 
-  <!-- Nút Vòng quay -->
+  <!-- Nút mở -->
   <button class="button" onclick="showGifts()">🎁 Mở Ra (Vòng quay)</button>
-
-  <!-- Nút Hình ảnh -->
   <button class="button" onclick="toggleImages()">🎁 Mở Ra (Hình ảnh)</button>
 
-  <!-- Vòng quay 3 hộp quà -->
+  <!-- Hộp quà -->
   <div class="gift-boxes" id="giftBoxes">
     <div class="gift" onclick="revealGift(this)">🎁</div>
     <div class="gift" onclick="revealGift(this)">🎁</div>
     <div class="gift" onclick="revealGift(this)">🎁</div>
   </div>
 
-  <!-- Hình ảnh -->
+  <!-- Danh sách ảnh -->
   <div class="image-container" id="imageContainer">
     <div class="image-box">
       <img src="https://placekitten.com/200/200" alt="1">
@@ -198,19 +233,21 @@
     </div>
     <div class="image-box">
       <img src="https://placekitten.com/202/202" alt="3">
-      <div class="caption">Thảo 🎂</div>
+      <div class="caption">Linh 🎂</div>
     </div>
     <div class="image-box">
       <img src="https://placekitten.com/203/203" alt="4">
-      <div class="caption">Linh ✨</div>
-    </div>
-    <div class="image-box">
-      <img src="https://placekitten.com/204/204" alt="5">
-      <div class="caption">Mai 🧁</div>
+      <div class="caption">Mai 🍰</div>
     </div>
   </div>
 
-  <div class="footer">With love 💖</div>
+  <div class="footer">With love 💕</div>
+
+  <!-- Nhạc -->
+  <audio id="birthdayAudio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
     function toggleImages() {
@@ -219,7 +256,28 @@
     }
 
     function showGifts() {
-      document.getElementById('giftBoxes').style.display = 'flex';
+      const giftContainer = document.getElementById('giftBoxes');
+      const gifts = giftContainer.querySelectorAll('.gift');
+
+      giftContainer.style.display = 'flex';
+      giftContainer.classList.add('intro');
+
+      const audio = document.getElementById("birthdayAudio");
+      audio.play();
+
+      // Reset trạng thái
+      gifts.forEach(gift => {
+        gift.classList.remove('revealed', 'ready');
+        gift.innerHTML = '🎁';
+      });
+
+      // Sau hiệu ứng xong thì cho click
+      setTimeout(() => {
+        giftContainer.classList.remove('intro');
+        gifts.forEach(gift => {
+          gift.classList.add('ready');
+        });
+      }, 1000);
     }
 
     function revealGift(element) {
@@ -231,9 +289,14 @@
         "🎶 Một bài hát chúc mừng từ tớ 💕"
       ];
       const prize = prizes[Math.floor(Math.random() * prizes.length)];
-
       element.innerHTML = prize;
       element.classList.add("revealed");
+
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
     }
   </script>
 
