@@ -1,143 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday Trang!</title>
+  <title>Chúc Mừng Sinh Nhật</title>
   <style>
     body {
-      background: linear-gradient(135deg, #f8cdda, #1d2b64);
-      color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
-      min-height: 100vh;
       margin: 0;
-    }
-    h1 {
-      color: #ff69b4;
-      text-shadow: 1px 1px 5px #ff1493;
-      margin-bottom: 20px;
-      font-size: 3rem;
-    }
-    .intro {
-      max-width: 600px;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #d68dfc, #8d6bfa);
+      color: white;
       text-align: center;
-      font-size: 1.2rem;
-      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 40px;
       line-height: 1.6;
     }
-    .gifts {
+
+    .button {
+      background-color: #ff5cc8;
+      border: none;
+      padding: 14px 25px;
+      font-size: 16px;
+      color: white;
+      border-radius: 12px;
+      margin: 15px auto;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+      width: 80%;
+      max-width: 280px;
+      transition: transform 0.2s;
+      display: block;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    /* IMAGE CONTAINER */
+    .image-container {
       display: flex;
-      gap: 30px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 600px;
-      margin-top: 20px;
-    }
-    .gift-button {
-      background: #ff69b4;
-      border: none;
-      border-radius: 12px;
-      padding: 20px 30px;
-      color: white;
-      font-size: 1.2rem;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .gift-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 25px rgba(255, 105, 180, 0.9);
-    }
-    footer {
-      margin-top: 40px;
-      font-style: italic;
-      color: #ffc0cb;
-      font-size: 1rem;
-    }
-    #wheel, #result, #imageBox {
+      gap: 15px;
       margin-top: 30px;
-      text-align: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.5s ease;
+      pointer-events: none;
     }
-    #wheel {
-      width: 200px;
-      height: 200px;
-      border: 10px solid #fff;
+
+    .image-container.show {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .image-box {
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      background: conic-gradient(#ff69b4 0% 33%, #ffb6c1 33% 66%, #ffe4e1 66% 100%);
-      animation: none;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* GIFT BOXES */
+    .gift-boxes {
+      display: none;
+      margin-top: 30px;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .gift {
+      width: 100px;
+      height: 100px;
+      background-color: #ffc4e1;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      cursor: pointer;
+      transition: transform 0.3s;
       position: relative;
     }
-    #wheel::after {
-      content: "▼";
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      color: #fff;
+
+    .gift:hover {
+      transform: scale(1.1);
     }
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(1440deg); }
+
+    .gift.revealed {
+      background-color: white;
+      color: #ff5cc8;
+      font-size: 16px;
+      pointer-events: none;
     }
-    #wheel.spin {
-      animation: spin 3s ease-out forwards;
+
+    .footer {
+      margin-top: 50px;
+      font-style: italic;
+      color: #ffe6f5;
     }
-    #imageBox img {
-      width: 300px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.5);
+
+    @media (max-width: 500px) {
+      .image-box {
+        width: 80px;
+        height: 80px;
+      }
+
+      p {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Happy Birthday, Trang! 🎉🎂🎈</h1>
-  <div class="intro">
-    Chúc bạn một sinh nhật tràn ngập niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
-Nhấp vào các nút bên dưới để mở những bất ngờ sinh nhật đặc biệt của bạn!
+
+  <p>
+    Chúc bạn một sinh nhật tràn ngập<br>
+    niềm vui, bất ngờ và những khoảnh khắc chân thành.<br>
+    Nhấp vào các nút bên dưới để mở<br>
+    những bất ngờ sinh nhật đặc biệt của bạn!
+  </p>
+
+  <!-- Nút Vòng quay -->
+  <button class="button" onclick="showGifts()">🎁 Mở Ra (Vòng quay)</button>
+
+  <!-- Nút Hình ảnh -->
+  <button class="button" onclick="toggleImages()">🎁 Mở Ra (Hình ảnh)</button>
+
+  <!-- Vòng quay 3 hộp quà -->
+  <div class="gift-boxes" id="giftBoxes">
+    <div class="gift" onclick="revealGift(this)">🎁</div>
+    <div class="gift" onclick="revealGift(this)">🎁</div>
+    <div class="gift" onclick="revealGift(this)">🎁</div>
   </div>
 
-  <div class="gifts">
-    <button class="gift-button" onclick="spinWheel()">🎁 Mở Ra  (Vòng quay)</button>
-    <button class="gift-button" onclick="showImage()">🎁 Mở Ra (Hình ảnh)</button>
+  <!-- Hình ảnh -->
+  <div class="image-container" id="imageContainer">
+    <div class="image-box"><img src="https://placekitten.com/200/200" alt="1"></div>
+    <div class="image-box"><img src="https://placekitten.com/201/201" alt="2"></div>
+    <div class="image-box"><img src="https://placekitten.com/202/202" alt="3"></div>
+    <div class="image-box"><img src="https://placekitten.com/203/203" alt="4"></div>
+    <div class="image-box"><img src="https://placekitten.com/204/204" alt="5"></div>
   </div>
 
-  <div id="wheel" style="display:none;"></div>
-  <div id="result"></div>
-  <div id="imageBox" style="display:none;">
-    <img src="https://i.imgur.com/w1UJtnU.jpg" alt="Happy Image">
-  </div>
-
-  <footer>With love 💖</footer>
+  <div class="footer">With love 💖</div>
 
   <script>
-    let prizes = ["🐻 một bé gấu dễ thương", "🍀 Chúc may mắn lần sau", "🎁 Quà tự chọn trong tầm với của mình"];
-
-    function spinWheel() {
-      document.getElementById("wheel").style.display = "block";
-      document.getElementById("result").textContent = "";
-      document.getElementById("imageBox").style.display = "none";
-
-      const wheel = document.getElementById("wheel");
-      wheel.classList.remove("spin");
-      void wheel.offsetWidth; // Reset animation
-      wheel.classList.add("spin");
-
-      setTimeout(() => {
-        let index = Math.floor(Math.random() * prizes.length);
-        document.getElementById("result").textContent = "Bạn nhận được: " + prizes[index];
-      }, 3000);
+    function toggleImages() {
+      const container = document.getElementById('imageContainer');
+      container.classList.toggle('show');
     }
 
-    function showImage() {
-      document.getElementById("wheel").style.display = "none";
-      document.getElementById("result").textContent = "";
-      document.getElementById("imageBox").style.display = "block";
+    function showGifts() {
+      document.getElementById('giftBoxes').style.display = 'flex';
+    }
+
+    function revealGift(element) {
+      if (element.classList.contains('revealed')) return;
+
+      const prizes = [
+        "🎉 Bạn nhận được 1 lời chúc ngọt ngào!",
+        "🍰 Một chiếc bánh sinh nhật ảo siêu dễ thương!",
+        "🎶 Một bài hát chúc mừng từ tớ 💕"
+      ];
+      const prize = prizes[Math.floor(Math.random() * prizes.length)];
+
+      element.innerHTML = prize;
+      element.classList.add("revealed");
     }
   </script>
+
 </body>
 </html>
