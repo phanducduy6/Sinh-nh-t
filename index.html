@@ -3,47 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chúc Mừng Sinh Nhật Trang !</title>
+  <title>Chúc Mừng Sinh Nhật Trang!</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      background: linear-gradient(to bottom right, #ffd1dc, #ffe6f0);
       overflow: hidden;
-      color: white;
       text-align: center;
+      color: #ff69b4;
     }
 
     h1 {
-      margin-top: 20%;
-      font-size: 3em;
+      margin-top: 25vh;
+      font-size: 2.5em;
       animation: fadeIn 2s ease-in-out forwards;
     }
 
     .btn {
       margin-top: 20px;
-      padding: 12px 25px;
+      padding: 14px 28px;
       font-size: 1.2em;
-      background: #fff;
-      color: #ff69b4;
+      background: #ffb6c1;
+      color: #fff;
       border: none;
-      border-radius: 12px;
+      border-radius: 20px;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
     }
 
     .btn:hover {
       background: #ff69b4;
-      color: #fff;
     }
 
     .message {
-      font-size: 1.5em;
+      font-size: 1.4em;
       margin: 30px auto;
-      width: 80%;
+      width: 90%;
+      max-width: 600px;
       display: none;
       white-space: pre-line;
-      animation: typing 4s steps(40) 1s 1 normal both;
+      color: #d63384;
+      animation: typing 3.5s steps(40) 1s 1 normal both;
     }
 
     @keyframes fadeIn {
@@ -61,16 +64,34 @@
       top: 0;
       left: 0;
       pointer-events: none;
+      z-index: -1;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+        margin-top: 20vh;
+      }
+
+      .btn {
+        font-size: 1em;
+        padding: 12px 22px;
+      }
+
+      .message {
+        font-size: 1.1em;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Nhấn vào đây để nhận điều bất ngờ 🎉</h1>
-  <button class="btn" onclick="showMessage()">Mở Quà 🎁</button>
+  <h1>🎉 Chúc Mừng Sinh Nhật Trang 🎉</h1>
+  <button class="btn" onclick="showMessage()">Mở điều bất ngờ 💌</button>
   <div class="message" id="message">
-    Chúc mừng sinh nhật bạn nha! 🥳\n
-    Chúc bạn luôn vui vẻ, xinh đẹp, mạnh khỏe, và hạnh phúc mỗi ngày! 💖\n
-    Cảm ơn bạn đã là một phần tuyệt vời trong cuộc sống này! 🎂
+    Trang ơi! 💕\n
+    Hôm nay là ngày thật đặc biệt – ngày mà một cô gái dễ thương chào đời 🎂\n
+    Chúc Trang luôn xinh đẹp, tỏa sáng, mạnh khỏe và hạnh phúc mỗi ngày ✨\n
+    Mong mọi điều tốt lành luôn đến với Trang, vì bạn xứng đáng với tất cả! 💖
   </div>
 
   <canvas id="fireworks"></canvas>
@@ -85,7 +106,6 @@
       startFireworks();
     }
 
-    // Fireworks effect
     const canvas = document.getElementById('fireworks');
     const ctx = canvas.getContext('2d');
     let w, h;
@@ -100,7 +120,7 @@
     function createFirework() {
       const x = Math.random() * w;
       const y = Math.random() * h / 2;
-      const color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+      const color = `hsl(${Math.random() * 360}, 100%, 85%)`;
       for (let i = 0; i < 100; i++) {
         particles.push({
           x, y,
@@ -113,7 +133,7 @@
     }
 
     function drawFireworks() {
-      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillStyle = 'rgba(255,255,255,0.1)';
       ctx.fillRect(0, 0, w, h);
       particles.forEach((p, i) => {
         p.x += p.vx;
