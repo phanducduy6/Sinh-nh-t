@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -42,18 +43,46 @@
       left: 0;
       z-index: 0;
     }
+
+    .back-button {
+      margin-top: 40px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .back-button a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ff99cc;
+      color: white;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .back-button a:hover {
+      background: #ff66aa;
+    }
   </style>
 </head>
 <body>
   <h1>🎂 Chúc mừng sinh nhật Trang 💖</h1>
   <div id="message"></div>
   <canvas id="canvas"></canvas>
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_6b1c77e702.mp3" type="audio/mp3">
+
+  <!-- Nhạc chúc mừng sinh nhật -->
+  <audio autoplay loop controls style="margin-top: 20px; z-index:2; position: relative;">
+    <source src="https://cdn.pixabay.com/audio/2023/05/06/audio_5a77b17f2a.mp3" type="audio/mp3">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
   </audio>
 
+  <!-- Nút trở lại -->
+  <div class="back-button">
+    <a href="index.html">🔙 Trở về Trang Chính</a>
+  </div>
+
   <script>
-    // Message typewriter
     const msg = `Chúc mừng sinh nhật Trang 🎉
 
 Hôm nay là một ngày thật đặc biệt – ngày mà một cô gái tuyệt vời xuất hiện trên thế giới này 💕
@@ -63,6 +92,7 @@ Tớ chúc Trang luôn luôn vui vẻ, luôn rực rỡ như pháo hoa 🌸
 Chúc Trang nhận được thật nhiều yêu thương, thật nhiều quà, và đặc biệt là... thật nhiều niềm vui! 💝
 
 🎂 Happy Birthday to you 🎂`;
+
     const messageEl = document.getElementById("message");
     let i = 0;
     function typeWriter() {
@@ -74,12 +104,10 @@ Chúc Trang nhận được thật nhiều yêu thương, thật nhiều quà, v
     }
     typeWriter();
 
-    // Firework
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     const fireworks = [];
 
     function Firework() {
@@ -135,7 +163,6 @@ Chúc Trang nhận được thật nhiều yêu thương, thật nhiều quà, v
     function animate() {
       ctx.fillStyle = "rgba(0,0,0,0.2)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
       fireworks.forEach((fw, index) => {
         fw.update();
         fw.draw();
@@ -143,7 +170,6 @@ Chúc Trang nhận được thật nhiều yêu thương, thật nhiều quà, v
           fireworks.splice(index, 1);
         }
       });
-
       requestAnimationFrame(animate);
     }
 
@@ -158,20 +184,5 @@ Chúc Trang nhận được thật nhiều yêu thương, thật nhiều quà, v
       canvas.height = window.innerHeight;
     });
   </script>
-</div>
-<div style="margin-top: 40px;">
-  <a href="index.html" style="
-    display: inline-block;
-    padding: 12px 24px;
-    background: #ff99cc;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  ">🔙 Trở về Trang Chính</a>
-</div>
-
-</body>
 </body>
 </html>
