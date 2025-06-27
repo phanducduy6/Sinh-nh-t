@@ -3,18 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ảnh Trái Tim ❤️</title>
+  <title>Ảnh Trái Tim Trang ❤️</title>
   <style>
     body {
       background: linear-gradient(to right, #ffe6f0, #ffd6e0);
       font-family: 'Segoe UI', sans-serif;
-      text-align: center;
       color: #d63384;
+      text-align: center;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     h1 {
       margin-bottom: 10px;
+      font-size: 2em;
     }
 
     .heart-container {
@@ -24,6 +26,7 @@
       gap: 5px;
       justify-content: center;
       margin: 30px auto;
+      transition: transform 0.5s ease;
     }
 
     .heart-container img {
@@ -31,12 +34,12 @@
       height: 80px;
       object-fit: cover;
       border-radius: 10px;
+      animation: spin 2s linear;
       transition: transform 0.3s ease;
     }
 
-    .heart-container img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    .heart-container.assembled img {
+      animation: none;
     }
 
     .tooltip {
@@ -44,16 +47,39 @@
       background: #fff0f5;
       padding: 8px 12px;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       font-size: 0.9em;
       color: #d63384;
       display: none;
       z-index: 10;
     }
 
+    .back-button {
+      margin-top: 30px;
+    }
+
+    .back-button a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #ff99cc;
+      color: white;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .back-button a:hover {
+      background: #ff66aa;
+    }
+
+    @keyframes spin {
+      from { transform: rotateY(0); }
+      to { transform: rotateY(360deg); }
+    }
+
     @media screen and (max-width: 600px) {
       .heart-container {
-        transform: scale(0.9);
+        transform: scale(0.95);
       }
     }
   </style>
@@ -64,13 +90,17 @@
   <div class="heart-container" id="heart"></div>
   <div class="tooltip" id="tooltip"></div>
 
+  <div class="back-button">
+    <a href="index.html">🔙 Trở về Trang Chính</a>
+  </div>
+
   <script>
     const imgSrcs = [
-      "https://i.postimg.cc/RZrqDFjs/IMG-3688.png", "https://i.postimg.cc/PxcdvVH3/IMG-3685.png", "https://i.postimg.cc/cJxxp8Tm/IMG-3686.png",
-      "https://i.postimg.cc/cJxxp8Tm/IMG-3686.png", "https://i.postimg.cc/x8wjhxFJ/IMG-3689.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
-      "https://i.postimg.cc/x8wjhxFJ/IMG-3689.png", "https://i.postimg.cc/cJxxp8Tm/IMG-3686.png", "https://i.postimg.cc/PxcdvVH3/IMG-3685.png",
-      "https://i.postimg.cc/PxcdvVH3/IMG-3685.png", "https://i.postimg.cc/x8wjhxFJ/IMG-3689.png", "https://i.postimg.cc/cJxxp8Tm/IMG-3686.png",
-      "https://i.postimg.cc/PxcdvVH3/IMG-3685.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PxcdvVH3/IMG-3685.png"
+      "https://i.imgur.com/1.jpg", "https://i.imgur.com/2.jpg", "https://i.imgur.com/3.jpg",
+      "https://i.imgur.com/4.jpg", "https://i.imgur.com/5.jpg", "https://i.imgur.com/6.jpg",
+      "https://i.imgur.com/7.jpg", "https://i.imgur.com/8.jpg", "https://i.imgur.com/9.jpg",
+      "https://i.imgur.com/10.jpg", "https://i.imgur.com/11.jpg", "https://i.imgur.com/12.jpg",
+      "https://i.imgur.com/13.jpg", "https://i.imgur.com/14.jpg", "https://i.imgur.com/15.jpg"
     ];
 
     const messages = [
@@ -92,6 +122,7 @@
     const heart = document.getElementById("heart");
     const tooltip = document.getElementById("tooltip");
 
+    // Khởi tạo ảnh quay
     for (let i = 0; i < 25; i++) {
       const cell = document.createElement("div");
       if (positions.includes(i)) {
@@ -99,6 +130,7 @@
         const index = positions.indexOf(i);
         img.src = imgSrcs[index];
         img.alt = "Ảnh Trang";
+        img.title = messages[index];
         img.addEventListener("mouseenter", (e) => {
           tooltip.innerText = messages[index];
           tooltip.style.display = "block";
@@ -112,18 +144,11 @@
       }
       heart.appendChild(cell);
     }
+
+    // Sau 5 giây xếp lại hình trái tim
+    setTimeout(() => {
+      heart.classList.add("assembled");
+    }, 5000);
   </script>
-<div style="margin-top: 40px;">
-  <a href="index.html" style="
-    display: inline-block;
-    padding: 12px 24px;
-    background: #ff99cc;
-    color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  ">🔙 Trở về Trang Chính</a>
-</div>
 </body>
 </html>
