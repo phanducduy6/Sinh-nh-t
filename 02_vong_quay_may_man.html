@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vòng Quay Sinh Nhật Trang</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #ffd1dc, #ffe6f0);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      color: #d63384;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2em;
+    }
+
+    canvas {
+      margin-top: 20px;
+    }
+
+    #spin {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.3em;
+      color: #c2185b;
+      min-height: 2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Vòng Quay May Mắn – Trang sẽ trúng gì đây? 🎁</h1>
+  <canvas id="wheel" width="300" height="300"></canvas><br/>
+  <button id="spin">Quay Thử 💫</button>
+  <div id="result"></div>
+
+  <script>
+    const canvas = document.getElementById("wheel");
+    const ctx = canvas.getContext("2d");
+    const options = [
+      "🐻 Gấu bông siêu to",
+      "🍫 Một thanh socola ngọt ngào",
+      "💌 Lời chúc bí mật",
+      "🌹 Một bông hồng tặng Trang",
+      "🎂 Một chiếc bánh sinh nhật",
+      "💖 Một cái ôm siêu chặt",
+      "🧸 Một buổi đi chơi cùng bạn",
+      "🥰 Một điều ước dễ thương"
+    ];
+    const colors = ["#ffb6c1", "#f78fb3", "#ffc0cb", "#fa99c9", "#ffe6f0", "#fcb8d2", "#ffcad4", "#fda4ba"];
+    let startAngle = 0;
+
+    function drawWheel() {
+      const arc = 2 * Math.PI / options.length;
+      for (let i = 0; i < options.length; i++) {
+        const angle = startAngle + i * arc;
+        ctx.fillStyle = colors[i];
+        ctx.beginPath();
+        ctx.moveTo(150, 150);
+        ctx.arc(150, 150, 150, angle, angle + arc, false);
+        ctx.lineTo(150, 150);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.rotate(angle + arc / 2);
+        ctx.fillStyle = "#fff";
+        ctx.font = "14px sans-serif";
+        ctx.fillText(options[i], 30, 5);
+        ctx.restore();
+      }
+    }
+
+    drawWheel();
+
+    document.getElementById("spin").onclick = function () {
+      const arc = 2 * Math.PI / options.length;
+      const randomSpin = Math.random() * options.length;
+      const degrees = (randomSpin * arc) * (180 / Math.PI);
+      canvas.style.transition = "transform 4s cubic-bezier(0.33, 1, 0.68, 1)";
+      canvas.style.transform = `rotate(${1440 + degrees}deg)`;
+
+      const index = Math.floor(randomSpin);
+      const prize = options[index];
+
+      setTimeout(() => {
+        document.getElementById("result").innerText = `🎉 Trang đã trúng: ${prize} 🎉`;
+        canvas.style.transition = "none";
+        canvas.style.transform = "rotate(0deg)";
+        drawWheel();
+      }, 4000);
+    };
+  </script>
+</body>
+</html>
