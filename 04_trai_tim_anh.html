@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="vi">
+<!DOCTYPE html>
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,116 +11,107 @@
       text-align: center;
       color: #d63384;
       padding: 20px;
-      overflow-x: hidden;
-    }h1 {
-  margin-bottom: 10px;
-}
+    }
 
-.heart-container {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 40px auto;
-}
+    h1 {
+      margin-bottom: 10px;
+    }
 
-.photo {
-  width: 60px;
-  height: 60px;
-  border-radius: 10px;
-  object-fit: cover;
-  position: absolute;
-  transition: transform 0.3s ease;
-  animation: floatIn 1s ease forwards;
-  opacity: 0;
-}
+    .heart-container {
+      display: grid;
+      grid-template-columns: repeat(5, 80px);
+      grid-template-rows: repeat(5, 80px);
+      gap: 5px;
+      justify-content: center;
+      margin: 30px auto;
+    }
 
-.photo:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
+    .heart-container img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
 
-#center-icon {
-  position: absolute;
-  top: 135px;
-  left: 150px;
-  transform: translate(-50%, -50%);
-  font-size: 42px;
-  animation: glow 2s infinite;
-  z-index: 3;
-}
+    .heart-container img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
 
-@keyframes glow {
-  0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff99cc; }
-  50% { text-shadow: 0 0 20px #ff66b2, 0 0 30px #ff1493; }
-}
+    .tooltip {
+      position: absolute;
+      background: #fff0f5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 0.9em;
+      color: #d63384;
+      display: none;
+      z-index: 10;
+    }
 
-@keyframes floatIn {
-  0% {
-    opacity: 0;
-    transform: translateY(100px) scale(0.5);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.back-button {
-  margin-top: 30px;
-}
-
-.back-button a {
-  display: inline-block;
-  padding: 12px 24px;
-  background: #ff99cc;
-  color: white;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.back-button a:hover {
-  background: #ff66aa;
-}
-
-@media screen and (max-width: 400px) {
-  .heart-container {
-    transform: scale(0.85);
-  }
-}
-
+    @media screen and (max-width: 600px) {
+      .heart-container {
+        transform: scale(0.9);
+      }
+    }
   </style>
 </head>
 <body>
   <h1>Ảnh Kỷ Niệm Hình Trái Tim 💖</h1>
-  <p>Mỗi bức ảnh là một điều đáng nhớ dành cho Trang!</p>  <div class="heart-container" id="heart">
-    <div id="center-icon">🎂</div>
-  </div>  <div class="back-button">
-    <a href="index.html">🔙 Trở lại</a>
-  </div>  <script>
-    const imgSrc = 'https://i.postimg.cc/PrD5YHPm/IMG-3687.png';
-    const heart = document.getElementById("heart");
+  <p>Mỗi bức ảnh là một điều đáng nhớ dành cho Trang!</p>
+  <div class="heart-container" id="heart"></div>
+  <div class="tooltip" id="tooltip"></div>
 
-    // Vị trí tạo hình trái tim có khoảng trống ở giữa cho icon 🎂
-    const coords = [
-      [120, 20], [160, 20],
-      [100, 60], [140, 60], [180, 60],
-      [80, 100], [200, 100],
-      [60, 140], [220, 140],
-      [80, 180], [200, 180],
-      [100, 210], [180, 210],
-      [120, 240], [160, 240]
+  <script>
+    const imgSrcs = [
+      "https://i.imgur.com/1.jpg", "https://i.imgur.com/2.jpg", "https://i.imgur.com/3.jpg",
+      "https://i.imgur.com/4.jpg", "https://i.imgur.com/5.jpg", "https://i.imgur.com/6.jpg",
+      "https://i.imgur.com/7.jpg", "https://i.imgur.com/8.jpg", "https://i.imgur.com/9.jpg",
+      "https://i.imgur.com/10.jpg", "https://i.imgur.com/11.jpg", "https://i.imgur.com/12.jpg",
+      "https://i.imgur.com/13.jpg", "https://i.imgur.com/14.jpg", "https://i.imgur.com/15.jpg"
     ];
 
-    coords.forEach((pos, i) => {
-      const img = document.createElement("img");
-      img.src = imgSrc;
-      img.className = "photo";
-      img.style.top = `${pos[1]}px`;
-      img.style.left = `${pos[0]}px`;
-      img.style.animationDelay = `${i * 0.1}s`;
-      heart.appendChild(img);
-    });
-  </script></body>
+    const messages = [
+      "Khoảnh khắc đáng yêu", "Kỷ niệm cùng nhau", "Nụ cười của Trang",
+      "Nhớ hôm ấy không?", "Ngày mình gặp mặt", "Tấm này xinh xỉu",
+      "Trang cute hết nấc", "Ánh mắt ngây thơ", "Một chút dịu dàng",
+      "Một chút vui nhộn", "Một chút nghịch ngợm", "Một chút yêu thương",
+      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!"
+    ];
+
+    const positions = [
+      1, 2, 4, 5,
+      6, 7, 8, 9,
+      11, 12, 13,
+      17, 18,
+      22
+    ];
+
+    const heart = document.getElementById("heart");
+    const tooltip = document.getElementById("tooltip");
+
+    for (let i = 0; i < 25; i++) {
+      const cell = document.createElement("div");
+      if (positions.includes(i)) {
+        const img = document.createElement("img");
+        const index = positions.indexOf(i);
+        img.src = imgSrcs[index];
+        img.alt = "Ảnh Trang";
+        img.addEventListener("mouseenter", (e) => {
+          tooltip.innerText = messages[index];
+          tooltip.style.display = "block";
+          tooltip.style.top = e.pageY + "px";
+          tooltip.style.left = e.pageX + "px";
+        });
+        img.addEventListener("mouseleave", () => {
+          tooltip.style.display = "none";
+        });
+        cell.appendChild(img);
+      }
+      heart.appendChild(cell);
+    }
+  </script>
+</body>
 </html>
