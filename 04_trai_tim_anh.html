@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!DOCTYPE html><html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,96 +10,114 @@
       color: #d63384;
       text-align: center;
       padding: 20px;
-    }
+      overflow: hidden;
+    }h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
+.heart {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
 
-    .heart {
-      position: relative;
-      width: 320px;
-      height: 360px;
-      margin: 0 auto;
-    }
+.photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0;
+  transform: translate(50vw, 100vh) scale(0.1);
+  animation: flyIn 2.5s ease-in-out forwards;
+}
 
-    .heart img {
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 12px;
-      animation: spin 1.2s ease;
-      transition: transform 0.3s ease;
-    }
+#center-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  animation: glow 2s infinite;
+}
 
-    .heart.assembled img {
-      animation: none;
-    }
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff99cc; }
+  50% { text-shadow: 0 0 20px #ff66b2, 0 0 30px #ff1493; }
+}
 
-    .back-button {
-      margin-top: 30px;
-    }
+@keyframes flyIn {
+  0% {
+    opacity: 0;
+    transform: translate(50vw, 100vh) scale(0.1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(50vw, 50vh) scale(1.1) rotate(180deg);
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1) rotate(360deg);
+  }
+}
 
-    .back-button a {
-      display: inline-block;
-      padding: 12px 24px;
-      background: #ff99cc;
-      color: white;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+.back-button {
+  margin-top: 30px;
+}
 
-    .back-button a:hover {
-      background: #ff66aa;
-    }
+.back-button a {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #ff99cc;
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
 
-    @keyframes spin {
-      from { transform: rotateY(0); }
-      to { transform: rotateY(360deg); }
-    }
+.back-button a:hover {
+  background: #ff66aa;
+}
 
-    @media (max-width: 400px) {
-      .heart {
-        transform: scale(0.8);
-      }
-    }
+@media (max-width: 400px) {
+  .heart {
+    transform: scale(0.8);
+  }
+}
+
   </style>
 </head>
 <body>
   <h1>Ảnh Hình Trái Tim Của Trang 💕</h1>
   <p>Mỗi ảnh là một điều đặc biệt</p>
   <div class="heart" id="heart">
-    <!-- Thay các ảnh dưới bằng ảnh thật của bạn -->
-    <img src="https://i.imgur.com/2yaf2wb.jpg" style="top: 0px; left: 80px;">
-    <img src="https://i.imgur.com/1qxWrF6.jpg" style="top: 0px; left: 160px;">
-    <img src="https://i.imgur.com/roXG53c.jpg" style="top: 60px; left: 40px;">
-    <img src="https://i.imgur.com/kX2C7qn.jpg" style="top: 60px; left: 120px;">
-    <img src="https://i.imgur.com/NMSBJbU.jpg" style="top: 60px; left: 200px;">
-    <img src="https://i.imgur.com/K1mPbcS.jpg" style="top: 120px; left: 0px;">
-    <img src="https://i.imgur.com/Z7jQ55r.jpg" style="top: 120px; left: 80px;">
-    <img src="https://i.imgur.com/syYm9fa.jpg" style="top: 120px; left: 160px;">
-    <img src="https://i.imgur.com/DOXgr3a.jpg" style="top: 120px; left: 240px;">
-    <img src="https://i.imgur.com/gM1WlIh.jpg" style="top: 180px; left: 40px;">
-    <img src="https://i.imgur.com/wLHD79m.jpg" style="top: 180px; left: 120px;">
-    <img src="https://i.imgur.com/jZ1bhJt.jpg" style="top: 180px; left: 200px;">
-    <img src="https://i.imgur.com/GYqgLoo.jpg" style="top: 240px; left: 80px;">
-    <img src="https://i.imgur.com/IgFQSRK.jpg" style="top: 240px; left: 160px;">
-    <img src="https://i.imgur.com/d5zUq8j.jpg" style="top: 300px; left: 120px;">
-  </div>
-
-  <div class="back-button">
+    <div id="center-icon">🎂</div>
+  </div>  <div class="back-button">
     <a href="index.html">🔙 Trở về Trang Chính</a>
-  </div>
-
-  <script>
+  </div>  <script>
     const heart = document.getElementById("heart");
-    setTimeout(() => {
-      heart.classList.add("assembled");
-    }, 5000);
-  </script>
-</body>
+
+    const coords = [
+      [160, 20], [200, 30], [240, 60], [260, 100],
+      [250, 140], [230, 180], [200, 210], [170, 230],
+      [140, 240], [110, 230], [80, 210], [50, 180],
+      [30, 140], [40, 100], [60, 60], [100, 30],
+      [140, 20], [180, 50], [120, 60], [200, 100],
+      [100, 120], [180, 140], [120, 160], [160, 180],
+      [140, 200], [160, 220], [140, 240], [160, 260]
+    ];
+
+    coords.forEach((pos, i) => {
+      const img = document.createElement('img');
+      img.src = `https://i.imgur.com/2yaf2wb.jpg`;
+      img.className = 'photo';
+      img.style.setProperty('--x', `${pos[0]}px`);
+      img.style.setProperty('--y', `${pos[1]}px`);
+      img.style.animationDelay = `${i * 0.2}s`;
+      heart.appendChild(img);
+    });
+  </script></body>
 </html>
