@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ảnh Trái Tim Trang ❤️</title>
+  <title>Ảnh Trái Tim Trang 💖</title>
   <style>
     body {
       background: linear-gradient(to right, #ffe6f0, #ffd6e0);
@@ -11,46 +11,32 @@
       color: #d63384;
       text-align: center;
       padding: 20px;
-      overflow-x: hidden;
     }
 
     h1 {
-      margin-bottom: 10px;
       font-size: 2em;
+      margin-bottom: 10px;
     }
 
-    .heart-container {
-      display: grid;
-      grid-template-columns: repeat(5, 80px);
-      grid-template-rows: repeat(5, 80px);
-      gap: 5px;
-      justify-content: center;
-      margin: 30px auto;
-      transition: transform 0.5s ease;
+    .heart {
+      position: relative;
+      width: 320px;
+      height: 280px;
+      margin: 0 auto;
     }
 
-    .heart-container img {
+    .heart img {
+      position: absolute;
       width: 80px;
       height: 80px;
       object-fit: cover;
-      border-radius: 10px;
-      animation: spin 2s linear;
+      border-radius: 12px;
+      animation: spin 1.2s ease;
       transition: transform 0.3s ease;
     }
 
-    .heart-container.assembled img {
+    .heart.assembled img {
       animation: none;
-    }
-
-    .tooltip {
-      position: absolute;
-      background: #fff0f5;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 0.9em;
-      color: #d63384;
-      display: none;
-      z-index: 10;
     }
 
     .back-button {
@@ -77,75 +63,42 @@
       to { transform: rotateY(360deg); }
     }
 
-    @media screen and (max-width: 600px) {
-      .heart-container {
-        transform: scale(0.95);
+    @media (max-width: 400px) {
+      .heart {
+        transform: scale(0.8);
       }
     }
   </style>
 </head>
 <body>
-  <h1>Ảnh Kỷ Niệm Hình Trái Tim 💖</h1>
-  <p>Mỗi bức ảnh là một điều đáng nhớ dành cho Trang!</p>
-  <div class="heart-container" id="heart"></div>
-  <div class="tooltip" id="tooltip"></div>
+  <h1>Ảnh Hình Trái Tim Của Trang 💕</h1>
+  <p>Mỗi ảnh là một điều đặc biệt</p>
+  <div class="heart" id="heart">
+    <!-- 15 ảnh -->
+    <!-- Bạn thay link ảnh Imgur ở đây -->
+    <img src="https://i.imgur.com/1.jpg" style="top: 0px; left: 80px;">
+    <img src="https://i.imgur.com/2.jpg" style="top: 0px; left: 160px;">
+    <img src="https://i.imgur.com/3.jpg" style="top: 60px; left: 40px;">
+    <img src="https://i.imgur.com/4.jpg" style="top: 60px; left: 120px;">
+    <img src="https://i.imgur.com/5.jpg" style="top: 60px; left: 200px;">
+    <img src="https://i.imgur.com/6.jpg" style="top: 120px; left: 0px;">
+    <img src="https://i.imgur.com/7.jpg" style="top: 120px; left: 80px;">
+    <img src="https://i.imgur.com/8.jpg" style="top: 120px; left: 160px;">
+    <img src="https://i.imgur.com/9.jpg" style="top: 120px; left: 240px;">
+    <img src="https://i.imgur.com/10.jpg" style="top: 180px; left: 40px;">
+    <img src="https://i.imgur.com/11.jpg" style="top: 180px; left: 120px;">
+    <img src="https://i.imgur.com/12.jpg" style="top: 180px; left: 200px;">
+    <img src="https://i.imgur.com/13.jpg" style="top: 240px; left: 80px;">
+    <img src="https://i.imgur.com/14.jpg" style="top: 240px; left: 160px;">
+    <img src="https://i.imgur.com/15.jpg" style="top: 300px; left: 120px;">
+  </div>
 
   <div class="back-button">
     <a href="index.html">🔙 Trở về Trang Chính</a>
   </div>
 
   <script>
-    const imgSrcs = [
-      "https://i.imgur.com/1.jpg", "https://i.imgur.com/2.jpg", "https://i.imgur.com/3.jpg",
-      "https://i.imgur.com/4.jpg", "https://i.imgur.com/5.jpg", "https://i.imgur.com/6.jpg",
-      "https://i.imgur.com/7.jpg", "https://i.imgur.com/8.jpg", "https://i.imgur.com/9.jpg",
-      "https://i.imgur.com/10.jpg", "https://i.imgur.com/11.jpg", "https://i.imgur.com/12.jpg",
-      "https://i.imgur.com/13.jpg", "https://i.imgur.com/14.jpg", "https://i.imgur.com/15.jpg"
-    ];
-
-    const messages = [
-      "Khoảnh khắc đáng yêu", "Kỷ niệm cùng nhau", "Nụ cười của Trang",
-      "Nhớ hôm ấy không?", "Ngày mình gặp mặt", "Tấm này xinh xỉu",
-      "Trang cute hết nấc", "Ánh mắt ngây thơ", "Một chút dịu dàng",
-      "Một chút vui nhộn", "Một chút nghịch ngợm", "Một chút yêu thương",
-      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!"
-    ];
-
-    const positions = [
-      1, 2, 4, 5,
-      6, 7, 8, 9,
-      11, 12, 13,
-      17, 18,
-      22
-    ];
-
     const heart = document.getElementById("heart");
-    const tooltip = document.getElementById("tooltip");
-
-    // Khởi tạo ảnh quay
-    for (let i = 0; i < 25; i++) {
-      const cell = document.createElement("div");
-      if (positions.includes(i)) {
-        const img = document.createElement("img");
-        const index = positions.indexOf(i);
-        img.src = imgSrcs[index];
-        img.alt = "Ảnh Trang";
-        img.title = messages[index];
-        img.addEventListener("mouseenter", (e) => {
-          tooltip.innerText = messages[index];
-          tooltip.style.display = "block";
-          tooltip.style.top = e.pageY + "px";
-          tooltip.style.left = e.pageX + "px";
-        });
-        img.addEventListener("mouseleave", () => {
-          tooltip.style.display = "none";
-        });
-        cell.appendChild(img);
-      }
-      heart.appendChild(cell);
-    }
-
-    // Sau 5 giây xếp lại hình trái tim
     setTimeout(() => {
       heart.classList.add("assembled");
     }, 5000);
