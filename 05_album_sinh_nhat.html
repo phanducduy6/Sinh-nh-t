@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Album Sinh Nhật Trang 📸</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to right, #fff0f5, #ffe6f0);
+      font-family: 'Segoe UI', sans-serif;
+      color: #d63384;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2em;
+    }
+
+    .slider {
+      position: relative;
+      max-width: 600px;
+      margin: 30px auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .slides {
+      display: flex;
+      width: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slides img {
+      width: 100%;
+      height: auto;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 1.1em;
+      min-height: 2em;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      .caption { font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+  <h1>📸 Album Kỷ Niệm Sinh Nhật Trang 💕</h1>
+  <div class="slider">
+    <div class="slides" id="slides">
+      <img src="https://i.imgur.com/1.jpg" alt="Ảnh 1">
+      <img src="https://i.imgur.com/2.jpg" alt="Ảnh 2">
+      <img src="https://i.imgur.com/3.jpg" alt="Ảnh 3">
+      <img src="https://i.imgur.com/4.jpg" alt="Ảnh 4">
+      <img src="https://i.imgur.com/5.jpg" alt="Ảnh 5">
+    </div>
+  </div>
+  <div class="caption" id="caption">Trang thật dễ thương trong bức này! 😍</div>
+
+  <audio src="https://cdn.pixabay.com/audio/2023/03/23/audio_9f36c85913.mp3" autoplay loop></audio>
+
+  <script>
+    const captions = [
+      "Trang thật dễ thương trong bức này! 😍",
+      "Nhớ ngày đó thật vui phải không? 😊",
+      "Góc nghiêng xinh xắn của Trang 🌸",
+      "Khoảnh khắc đáng yêu 🧸",
+      "Chỉ muốn chụp mãi thôi! 💖"
+    ];
+
+    let index = 0;
+    const slides = document.getElementById("slides");
+    const caption = document.getElementById("caption");
+    const total = captions.length;
+
+    setInterval(() => {
+      index = (index + 1) % total;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+      caption.innerText = captions[index];
+    }, 3500);
+  </script>
+</body>
+</html>
