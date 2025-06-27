@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ảnh Trái Tim ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trái Tim 6x6 ❤️</title>
   <style>
     body {
       background: linear-gradient(to right, #ffe6f0, #ffd6e0);
@@ -19,8 +19,8 @@
 
     .heart-container {
       display: grid;
-      grid-template-columns: repeat(5, 80px);
-      grid-template-rows: repeat(5, 80px);
+      grid-template-columns: repeat(6, 80px);
+      grid-template-rows: repeat(6, 80px);
       gap: 5px;
       justify-content: center;
       margin: 30px auto;
@@ -60,42 +60,44 @@
 </head>
 <body>
   <h1>Ảnh Kỷ Niệm Hình Trái Tim 💖</h1>
-  <p>Mỗi bức ảnh là một điều đáng nhớ dành cho Trang!</p>
+  <p>Hình trái tim theo bố cục riêng của bạn!</p>
   <div class="heart-container" id="heart"></div>
   <div class="tooltip" id="tooltip"></div>
 
   <script>
-    const imgSrcs = Array(17).fill("https://i.postimg.cc/PrD5YHPm/IMG-3687.png");
+    const imgSrcs = [
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
+      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png"
+    ];
 
     const messages = [
-      "Khoảnh khắc đáng yêu", "Kỷ niệm cùng nhau", "Nụ cười của Trang",
-      "Nhớ hôm ấy không?", "Ngày mình gặp mặt", "Tấm này xinh xỉu",
-      "Trang cute hết nấc", "Ánh mắt ngây thơ", "Một chút dịu dàng",
-      "Một chút vui nhộn", "Một chút nghịch ngợm", "Một chút yêu thương",
-      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!",
-      "Mãi bên nhau", "Tình cảm chân thành"
+      "Trái tim bắt đầu", "Nhịp đập bên phải",
+      "Trái tim bung nở", "Ánh nhìn yêu thương", "Nhịp trái tim", "Nét dịu dàng",
+      "Khoảnh khắc xinh đẹp", "Chút ngọt ngào", "Tình yêu gửi trao"
     ];
 
-    const positions = [
-      1, 2, 3, 4,
-      5, 6, 7, 8, 9,
-      10, 11, 12, 13, 14,
-      16, 17, 18,
-      22
-    ];
+    // Vị trí ảnh tạo hình trái tim (theo yêu cầu)
+    const positions = [0, 4, 6, 8, 10, 13, 16, 19, 22, 28];
 
     const heart = document.getElementById("heart");
     const tooltip = document.getElementById("tooltip");
 
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 36; i++) {
       const cell = document.createElement("div");
       if (positions.includes(i)) {
         const img = document.createElement("img");
         const index = positions.indexOf(i);
-        img.src = imgSrcs[index];
-        img.alt = "Ảnh Trang";
+        img.src = imgSrcs[index % imgSrcs.length];
+        img.alt = "Ảnh trái tim";
         img.addEventListener("mouseenter", (e) => {
-          tooltip.innerText = messages[index];
+          tooltip.innerText = messages[index % messages.length];
           tooltip.style.display = "block";
           tooltip.style.top = e.pageY + "px";
           tooltip.style.left = e.pageX + "px";
