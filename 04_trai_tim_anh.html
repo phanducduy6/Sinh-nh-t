@@ -65,27 +65,22 @@
   <div class="tooltip" id="tooltip"></div>
 
   <script>
-    const imgSrcs = [
-      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
-      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
-      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
-      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png",
-      "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png", "https://i.postimg.cc/PrD5YHPm/IMG-3687.png"
-    ];
+    const imgSrcs = Array(17).fill("https://i.postimg.cc/PrD5YHPm/IMG-3687.png");
 
     const messages = [
       "Khoảnh khắc đáng yêu", "Kỷ niệm cùng nhau", "Nụ cười của Trang",
       "Nhớ hôm ấy không?", "Ngày mình gặp mặt", "Tấm này xinh xỉu",
       "Trang cute hết nấc", "Ánh mắt ngây thơ", "Một chút dịu dàng",
       "Một chút vui nhộn", "Một chút nghịch ngợm", "Một chút yêu thương",
-      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!"
+      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!",
+      "Mãi bên nhau", "Tình cảm chân thành"
     ];
 
     const positions = [
-      1, 2, 4, 5,
-      6, 7, 8, 9,
-      11, 12, 13,
-      17, 18,
+      1, 2, 3, 4,
+      5, 6, 7, 8, 9,
+      10, 11, 12, 13, 14,
+      16, 17, 18,
       22
     ];
 
