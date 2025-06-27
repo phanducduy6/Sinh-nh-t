@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ảnh Trái Tim ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe6f0, #ffd6e0);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      color: #d63384;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    .heart-container {
+      display: grid;
+      grid-template-columns: repeat(5, 80px);
+      grid-template-rows: repeat(5, 80px);
+      gap: 5px;
+      justify-content: center;
+      margin: 30px auto;
+    }
+
+    .heart-container img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .heart-container img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .tooltip {
+      position: absolute;
+      background: #fff0f5;
+      padding: 8px 12px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-size: 0.9em;
+      color: #d63384;
+      display: none;
+      z-index: 10;
+    }
+
+    @media screen and (max-width: 600px) {
+      .heart-container {
+        transform: scale(0.9);
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Ảnh Kỷ Niệm Hình Trái Tim 💖</h1>
+  <p>Mỗi bức ảnh là một điều đáng nhớ dành cho Trang!</p>
+  <div class="heart-container" id="heart"></div>
+  <div class="tooltip" id="tooltip"></div>
+
+  <script>
+    const imgSrcs = [
+      "https://i.imgur.com/1.jpg", "https://i.imgur.com/2.jpg", "https://i.imgur.com/3.jpg",
+      "https://i.imgur.com/4.jpg", "https://i.imgur.com/5.jpg", "https://i.imgur.com/6.jpg",
+      "https://i.imgur.com/7.jpg", "https://i.imgur.com/8.jpg", "https://i.imgur.com/9.jpg",
+      "https://i.imgur.com/10.jpg", "https://i.imgur.com/11.jpg", "https://i.imgur.com/12.jpg",
+      "https://i.imgur.com/13.jpg", "https://i.imgur.com/14.jpg", "https://i.imgur.com/15.jpg"
+    ];
+
+    const messages = [
+      "Khoảnh khắc đáng yêu", "Kỷ niệm cùng nhau", "Nụ cười của Trang",
+      "Nhớ hôm ấy không?", "Ngày mình gặp mặt", "Tấm này xinh xỉu",
+      "Trang cute hết nấc", "Ánh mắt ngây thơ", "Một chút dịu dàng",
+      "Một chút vui nhộn", "Một chút nghịch ngợm", "Một chút yêu thương",
+      "Một chút ấm áp", "Một chút hạnh phúc", "Một chút... là bạn đó!"
+    ];
+
+    const positions = [
+      1, 2, 4, 5,
+      6, 7, 8, 9,
+      11, 12, 13,
+      17, 18,
+      22
+    ];
+
+    const heart = document.getElementById("heart");
+    const tooltip = document.getElementById("tooltip");
+
+    for (let i = 0; i < 25; i++) {
+      const cell = document.createElement("div");
+      if (positions.includes(i)) {
+        const img = document.createElement("img");
+        const index = positions.indexOf(i);
+        img.src = imgSrcs[index];
+        img.alt = "Ảnh Trang";
+        img.addEventListener("mouseenter", (e) => {
+          tooltip.innerText = messages[index];
+          tooltip.style.display = "block";
+          tooltip.style.top = e.pageY + "px";
+          tooltip.style.left = e.pageX + "px";
+        });
+        img.addEventListener("mouseleave", () => {
+          tooltip.style.display = "none";
+        });
+        cell.appendChild(img);
+      }
+      heart.appendChild(cell);
+    }
+  </script>
+</body>
+</html>
